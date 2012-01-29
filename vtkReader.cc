@@ -152,22 +152,16 @@ bool vtkReader::ReadRest(std::ifstream & input) {
 
       input >> sCurr;
       assert(!sCurr.compare("float"));
-      if (_bVerbose) std::cout << "-Found Tensor Data...\n";
-
-
+      if (_bVerbose) std::cout << "-Found Tensor Data: " << name << std::endl;
 
       for (int i = 0; i < _nNumOfFibers; ++i) {
         int nLineLength = _lines[i].size();
         (*_fibers)[i].Tensors[name].resize(nLineLength);
-        std::cout << "\nfiber length: " << nLineLength << std::endl;
-        std::cout << "progress: ";
         for (int j = 0; j < nLineLength; ++j) {
-          
-          if (j%10==0) std::cout << j << " ";
 
-          int t11, t12, t13;
-          int t21, t22, t23;
-          int t31, t32, t33;
+          double t11, t12, t13;
+          double t21, t22, t23;
+          double t31, t32, t33;
           
           input >> t11; input >> t12; input >> t13;
           input >> t21; input >> t22; input >> t23;
@@ -176,10 +170,11 @@ bool vtkReader::ReadRest(std::ifstream & input) {
           (*_fibers)[i].Tensors[name][j] = make_mat(t11, t12, t13,
                                                     t21, t22, t23,
                                                     t31, t31, t33);
+
           
         }
+        
       }      
-
     }
   }
   return 0; // should never reach eof

@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
     " INPUTFILE COMMAND VARIABLE\n INPUTFILE: *.vtk\n COMMAND: output, average\n VARIABLE: points, fa, trace, freewater";
       
   bool error = false;
-  bool Verbose = true;
+  bool Verbose = false;
 
   std::string mode;
   std::string output_variable;
@@ -52,6 +52,30 @@ int main(int argc, char* argv[]) {
   if (Verbose) std::cout << "-Number of fibers in the input: " << in_fibers.size() << std::endl;
 
   if (Verbose) std::cout << "** done\n";
+
+  int nMaxFiberLength = 0;
+  for (int i=0; i<in_fibers.size(); ++i) {
+    if (in_fibers[i].Points.size() > nMaxFiberLength)
+      nMaxFiberLength = in_fibers[i].Points.size();
+  }
+
+  //std::cout << "max fiber length: " << nMaxFiberLength << std::endl;
+
+  for (int j=0; j<nMaxFiberLength; j++) {
+    for (int i=0; i<in_fibers.size(); ++i) {
+      if (j<in_fibers[i].Points.size()) {
+        std::cout << in_fibers[i].Points[j]._[0] << ",";
+        std::cout << in_fibers[i].Points[j]._[1] << ",";
+        std::cout << in_fibers[i].Points[j]._[2];
+      } else {
+        std::cout << " , , ";
+      }
+      // only add the last colon if its not the end of the line
+      if (i != in_fibers.size()-1)
+        std::cout << ",";
+    }
+    std::cout << std::endl;
+  }
   
   return 0;
 
