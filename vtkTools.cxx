@@ -2,7 +2,7 @@
 #include <string>
 #include "vtkReader.h"
 #include "fiber.h"
-
+#include "FiberParser.h"
 
 int main(int argc, char* argv[]) {
     
@@ -32,7 +32,6 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  
   // Check input TODO
   
   // ALLOCATE THE FIBERS ///////////////////////////////////////////////////
@@ -51,18 +50,14 @@ int main(int argc, char* argv[]) {
   delete reader;
   if (Verbose) std::cout << "-Number of fibers in the input: " << in_fibers.size() << std::endl;
 
+  FiberParser * parser = new FiberParser();
+  parser->SetFibers(in_fibers);
+  parser->SetMode(mode);
+  parser->SetOutput(output_variable);
+  parser->Run();
+
   if (Verbose) std::cout << "** done\n";
 
-  int nMaxFiberLength = 0;
-  for (int i=0; i<in_fibers.size(); ++i) {
-    if (in_fibers[i].Points.size() > nMaxFiberLength)
-      nMaxFiberLength = in_fibers[i].Points.size();
-  }
-
-  //std::cout << "max fiber length: " << nMaxFiberLength << std::endl;
-
-
-  
   return 0;
 
 }

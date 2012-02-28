@@ -5,7 +5,7 @@ if(COMMAND CMAKE_POLICY)
 endif(COMMAND CMAKE_POLICY)
 
 # Generate InterfaceCLP.h
-SET(vtkFilter_SOURCE vtkTools.cxx vtkReader.cc)
+SET(vtkFilter_SOURCE vtkTools.cxx vtkReader.cc FiberParser.cc)
 
 # Add Executables and Link
 ADD_EXECUTABLE(vtkTools ${vtkFilter_SOURCE} )
