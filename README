@@ -1,3 +1,4 @@
-test
+## vtkTools
 
-update
+a collection of tools to post-process neural fiber bundels obtained using tractography, and to do arithmetic 
+with them such as finding the union or the intersection of two groups of fiber bundles. 
